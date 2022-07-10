@@ -52,7 +52,7 @@ class App {
   }
 
   drawLine() {
-    this.ctx.lineWidth = 5;
+    this.ctx.lineWidth = 3;
     this.ctx.strokeStyle = "rgba(200, 0, 0, 0.8)";
     this.ctx.fillStyle = "rgba(200, 0, 0, 0.8)";
 
@@ -77,6 +77,18 @@ class App {
     this.ctx.lineTo(580, 50);
     this.ctx.lineTo(580, 150);
     this.ctx.fill(); // closePath method called before fill inner area
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(600, 50);
+    this.ctx.lineTo(720, 230);
+    this.ctx.lineTo(700, 50);
+    this.ctx.lineTo(600, 250);
+    this.ctx.lineTo(650, 50);
+    this.ctx.lineTo(750, 200);
+    this.ctx.lineTo(600, 180);
+    this.ctx.closePath();
+    this.ctx.stroke();
+    //this.ctx.fill("evenodd");
   }
 }
 

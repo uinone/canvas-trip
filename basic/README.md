@@ -125,3 +125,165 @@ width는 양수라면 오른쪽 방향, 음수면 왼쪽 방향입니다.
 height는 양수라면 아래쪽 방향, 음수면 위쪽 방향입니다.
 
 크기는 |width| \* |height|가 됩니다.
+
+## 경로를 그리기 위한 메서드
+
+경로(path)는 직사각형 이외의 유일한 원시적인 도형입니다.
+
+경로를 이용하여 도형을 만들 때에는 경로를 생성하고, 그린 후 랜더링을 통해 canvas위에 그려지게 됩니다.
+
+이때 경로를 닫지(close)않는다면, 특정 메서드는 렌더링 시 의도와는 다른 결과를 부를 수 있습니다.
+
+**따라서 경로를 통해 그리려는 도형이 여러개라면 여러개의 경로를 생성해야합니다.**
+
+1. `beginPath()`
+
+[reference](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath)
+
+> 새로운 경로를 생성합니다.
+
+<br/>
+
+<br/>
+
+2. `closePath()`
+
+[reference](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/closePath)
+
+> 경로의 시작점과 끝점을 연결하고 경로를 닫습니다.
+
+```js
+this.ctx.lineWidth = 5;
+this.ctx.strokeStyle = "rgba(200, 0, 0, 0.8)";
+
+this.ctx.beginPath();
+this.ctx.moveTo(300, 100);
+this.ctx.lineTo(380, 50);
+this.ctx.lineTo(380, 150);
+this.ctx.stroke();
+```
+
+위와같이 경로를 구성하면
+
+<img src="../images/basic/1.JPG"/>
+
+이렇게 시작점과 끝점이 연결되지 않은채로 경로가 그려지지만
+
+closePath 메서드를 사용하면
+
+```js
+this.ctx.beginPath();
+this.ctx.moveTo(400, 100);
+this.ctx.lineTo(480, 50);
+this.ctx.lineTo(480, 150);
+this.ctx.closePath();
+this.ctx.stroke();
+```
+
+<img src="../images/basic/2.JPG"/>
+
+위와 같이 경로의 시작점과 끝점이 연결되게됩니다.
+
+단 위 코드는 단순히 경로 연결만 보여주는 것이 아닌 stroke 메서드로 직접 화면에 렌더링 하여 보여드렸음을 참고해주세요.
+
+**단순히 closePath 메서드를 통해 연결된 경로는 화면에 보여지지 않습니다.**
+
+<br/>
+
+<br/>
+
+3. `moveTo(x, y)`
+
+[reference](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/moveTo)
+
+> 경로가 그려지는 시작점을 재 설정합니다.
+
+x, y는 경로 시작점의 그리드상 위치입니다.
+
+이때 moveTo메서드로 옮겨진 곳에서 시작하는 경로는 하위 경로(sub-path)라고 합니다.
+
+**beginPath 메서드를 통해 시작된 경로에서 처음 경로를 그리게 되면 항상 그리게 되는 위치에 moveTo 메서드가 동작합니다.**
+
+마치 펜을 떼고 다른 위치에 다시 펜을 대는 것과 같게됩니다.
+
+<br/>
+
+<br/>
+
+4. `stroke()`
+
+[reference](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke)
+
+> 경로를 설정된 lineWidth와 strokeStyle을 통해 선 형태로 채웁니다.
+
+stroke 메서드는 최종적으로 화면에 그릴 때 사용되는 메서드입니다.
+
+따라서 stroke 메서드를 호출하면 화면에 렌더링되는 것을 볼 수 있습니다.
+
+<br/>
+
+<br/>
+
+5. `lineTo(x, y)`
+
+[reference](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo)
+
+> 이전 점부터 지정된 점까지 경로를 선으로 연결합니다.
+
+x, y는 경로 끝점의 그리드상 위치입니다.
+
+lineTo 메서드는 단순히 경로를 선 형태로 연결합니다.
+
+**즉, 화면에 렌더링 하는 메서드가 아닙니다.**
+
+<br/>
+
+<br/>
+
+5. `fill(path, fillRule)`
+
+[reference](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fill)
+
+> 현재 그려진 경로 혹은 주어진 경로를 설정된 fillStyle과 주어진 fillRule을 통해 채웁니다.
+
+인자로 들어갈 path와 fillRule은 생략 가능합니다.
+
+### fillRule
+
+이때 fillRule은 기본적으로 [nonzero](https://en.wikipedia.org/wiki/Nonzero-rule)이며, [evenodd](https://en.wikipedia.org/wiki/Even%E2%80%93odd_rule)로도 설정 가능합니다.
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Even-odd_and_non-zero_winding_fill_rules.png/330px-Even-odd_and_non-zero_winding_fill_rules.png" />
+
+\<출처 mdn>
+
+#### Nonzero Winding Rule
+
+Nonzero Winding Rule은 경로와 상관없이 canvas 내의 어떤 점이 경로로 그려지는 도형의 내부인지 외부인지를 판별할 수 있게 해주는 알고리즘입니다.
+
+위 이미지와 같이 경로는 항상 **반시계 방향**으로 그려졌다고 가정합니다.
+
+이때 특정 점으로 부터 도형쪽(내부라면 바깥쪽, 외부라면 도형 쪽)으로 길이가 무한한 선을 그립니다. **이때 특정 점에서 시작해야합니다.**
+
+해당 선과 경로가 만나는 점을
+
+경로가 왼쪽에서 오른쪽(또는 아래에서 위) 방향으로 지나가면 +1
+
+경로가 오른쪼겡서 왼쪽(또는 위에서 아래) 방향으로 지나가면 -1을 해서
+
+총 합이 0이라면 해당 점은 경로로 그려지는 도형 외부에 존재한다고 판단하며, 0이 아니라면 해당 점은 경로로 그려지는 도형 내부에 존재한다고 판단합니다.
+
+예를들어 위 이미지에서 왼쪽 방향으로 x축과 평행하게 그려진 화살표(꼭 x축과 평행하지 않아도 됩니다)는
+
+만나는 점에 대해 위에서 아래 방향으로 경로가 두번 지나가므로 -2입니다.
+
+따라서 이 점은 경로로 그려지는 도형의 내부에 있다고 판단하여, 색칠됩니다.
+
+#### Even-odd Rule
+
+Even-odd Rule은 마찬가지로 특정 점으로부터 도형 외부 또는 도형 내부로 무한히 뻗는 선을 하나 그린 후
+
+해당 선과 경로가 만나는 점의 개수가 홀수라면 내부, 짝수라면 외부라고 판단하는 알고리즘입니다.
+
+예를들어 위 이미지에서 왼쪽 방향으로 x축과 평행하게 그려진 화살표(꼭 x축과 평행하지 않아도 됩니다)는 경로와 짝수번 만나게 되므로
+
+도형의 외부라고 판단하여 색칠되지 않습니다.
