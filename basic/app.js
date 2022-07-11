@@ -1,3 +1,4 @@
+import { Arc } from "./Arc.js";
 import { Rectangle } from "./Rectangle.js";
 
 class App {
@@ -77,18 +78,52 @@ class App {
     this.ctx.lineTo(580, 50);
     this.ctx.lineTo(580, 150);
     this.ctx.fill(); // closePath method called before fill inner area
+  }
+
+  drawArc(x, y, radius, startAngle, endAngle, counterclockwise) {
+    const firstArc = new Arc(radius, startAngle, endAngle, counterclockwise);
+    firstArc.drawStroke(this.ctx, x, y, "rgba(200, 0, 0, 0.8)");
+    firstArc.drawFill(this.ctx, x + radius * 2 + 50, y, "rgba(0, 200, 0, 0.8)");
 
     this.ctx.beginPath();
-    this.ctx.moveTo(600, 50);
-    this.ctx.lineTo(720, 230);
-    this.ctx.lineTo(700, 50);
-    this.ctx.lineTo(600, 250);
-    this.ctx.lineTo(650, 50);
-    this.ctx.lineTo(750, 200);
-    this.ctx.lineTo(600, 180);
-    this.ctx.closePath();
+    this.ctx.strokeStyle = "black";
+    this.ctx.lineWidth = 2;
+    this.ctx.moveTo(500, 400);
+    this.ctx.arcTo(600, 400, 600, 500, 200);
     this.ctx.stroke();
-    //this.ctx.fill("evenodd");
+
+    /*
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = "blue";
+    this.ctx.lineWidth = 2;
+    this.ctx.moveTo(300, 400);
+    this.ctx.lineTo(400, 400);
+    this.ctx.lineTo(400, 500);
+    this.ctx.stroke();
+*/
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "rgba(200, 0, 0, 1)";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(500, 400, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "rgba(200, 0, 0, 1)";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(600, 400, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "rgba(200, 0, 0, 1)";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(600, 500, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "green";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(400, 400, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
   }
 }
 
@@ -96,4 +131,5 @@ window.onload = () => {
   const app = new App();
   app.drawRect(50, 50, 100, 100);
   app.drawLine();
+  app.drawArc(100, 400, 40, 0, 2 * Math.PI, false);
 };
