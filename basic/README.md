@@ -405,7 +405,7 @@ this.ctx.stroke();
 
 [베지에 곡선 설명](https://blog.coderifleman.com/2016/12/30/bezier-curves/#:~:text=%ED%95%9C%EB%A7%88%EB%94%94%EB%A1%9C%20%E2%80%9C%EB%B2%A0%EC%A7%80%EC%97%90%20%EA%B3%A1%EC%84%A0,%EB%82%B4%EB%8A%94%20%EB%B0%A9%EB%B2%95%EC%9D%84%20%EB%9C%BB%ED%95%9C%EB%8B%A4.)
 
-<img src="https://mdn.mozillademos.org/files/223/Canvas_curves.png" />
+<img src="https://media.prod.mdn.mozit.cloud/attachments/2012/07/09/223/c6ec7dd953e455094b46f514ba24680c/Canvas_curves.png" />
 
 \<출처 mdn>
 
