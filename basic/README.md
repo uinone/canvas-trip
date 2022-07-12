@@ -240,7 +240,7 @@ lineTo 메서드는 단순히 경로를 선 형태로 연결합니다.
 
 <br/>
 
-5. `fill(path, fillRule)`
+6. `fill(path, fillRule)`
 
 [reference](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fill)
 
@@ -266,6 +266,8 @@ Nonzero Winding Rule은 경로와 상관없이 canvas 내의 어떤 점이 경�
 
 이때 특정 점으로 부터 도형쪽(내부라면 바깥쪽, 외부라면 도형 쪽)으로 길이가 무한한 선을 그립니다. **이때 특정 점에서 시작해야합니다.**
 
+<br/>
+
 해당 선과 경로가 만나는 점을
 
 - [경로가 반시계 방향이라고 가정 시]
@@ -274,11 +276,15 @@ Nonzero Winding Rule은 경로와 상관없이 canvas 내의 어떤 점이 경�
 
 경로가 오른쪼겡서 왼쪽(또는 위에서 아래) 방향으로 지나가면 -1
 
+<br/>
+
 - [경로가 시계 방향이라고 가정 시]
 
 경로가 왼쪽에서 오른쪽(또는 아래에서 위) 방향으로 지나가면 -1
 
 경로가 오른쪼겡서 왼쪽(또는 위에서 아래) 방향으로 지나가면 +1
+
+<br/>
 
 총 합이 0이라면 해당 점은 경로로 그려지는 도형 외부에 존재한다고 판단하며, 0이 아니라면 해당 점은 경로로 그려지는 도형 내부에 존재한다고 판단합니다.
 
@@ -297,6 +303,10 @@ Even-odd Rule은 마찬가지로 특정 점으로부터 도형 외부 또는 도
 예를들어 위 이미지에서 왼쪽 방향으로 x축과 평행하게 그려진 화살표(꼭 x축과 평행하지 않아도 됩니다)는 경로와 짝수번 만나게 되므로
 
 도형의 외부라고 판단하여 색칠되지 않습니다.
+
+<br/>
+
+<br/>
 
 ## 호(arc)를 그리기 위한 메서드
 
@@ -325,6 +335,10 @@ radius는 호의 반지름이며, **양수여야합니다.**
 counterclockwise가 true면 호를 반시계 방향으로 그리며,
 
 false면 호를 시계 방향으로 그립니다.
+
+<br/>
+
+<br/>
 
 2. `arcTo(x1, y1, x2, y2, radius)`
 
@@ -380,3 +394,70 @@ this.ctx.stroke();
 <img src="../images/basic/5.JPG" />
 
 와 같이 그려지게 됩니다.(이때 초록색 점이 호의 시작점입니다.)
+
+<br/>
+
+<br/>
+
+## 베지에 곡선(Bezier Curve)을 그리기 위한 메서드
+
+[베지에 곡선 - 위키피디아](https://ko.wikipedia.org/wiki/%EB%B2%A0%EC%A7%80%EC%97%90_%EA%B3%A1%EC%84%A0)
+
+[베지에 곡선 설명](https://blog.coderifleman.com/2016/12/30/bezier-curves/#:~:text=%ED%95%9C%EB%A7%88%EB%94%94%EB%A1%9C%20%E2%80%9C%EB%B2%A0%EC%A7%80%EC%97%90%20%EA%B3%A1%EC%84%A0,%EB%82%B4%EB%8A%94%20%EB%B0%A9%EB%B2%95%EC%9D%84%20%EB%9C%BB%ED%95%9C%EB%8B%A4.)
+
+<img src="https://mdn.mozillademos.org/files/223/Canvas_curves.png" />
+
+\<출처 mdn>
+
+<br/>
+
+### 2차 베지에 곡선(Quadratic Bezier Curve)
+
+`quadraticCurveTo(cpx, cpy, x, y)`
+
+[reference](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/quadraticCurveTo)
+
+> 경로의 시작점과 조절점 그리고 끝점에 대한 2차 베지에 곡선을 그립니다.
+
+```js
+this.ctx.beginPath();
+this.ctx.strokeStyle = "green";
+this.ctx.lineWidth = 2;
+this.ctx.moveTo(startX, startY);
+this.ctx.quadraticCurveTo(controlX, controlY, endX, endY);
+this.ctx.stroke();
+```
+
+<img src="../images/basic/6.JPG" />
+
+위 코드와 같이 작성하여 2차 베지에 곡선을 그릴 수 있습니다.
+
+<br/>
+
+### 3차 베지에 곡선(Cubic Bezier Curve)
+
+`bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)`
+
+[reference](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/bezierCurveTo)
+
+> 경로의 시작점, 첫번째 조절점, 두번째 조절점, 끝점에 대한 3차 베지에 곡선을 그립니다.
+
+```js
+this.ctx.beginPath();
+this.ctx.strokeStyle = "green";
+this.ctx.lineWidth = 2;
+this.ctx.moveTo(startX, startY);
+this.ctx.bezierCurveTo(
+  firstControlX,
+  firstControlY,
+  secondControlX,
+  secondControlY,
+  endX,
+  endY
+);
+this.ctx.stroke();
+```
+
+<img src="../images/basic/7.JPG" width="300px"/>
+
+위 코드와 같이 작성하여 3차 베지에 곡선을 그릴 수 있습니다.

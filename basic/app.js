@@ -125,6 +125,112 @@ class App {
     this.ctx.arc(400, 400, 3, 0, 2 * Math.PI);
     this.ctx.fill();
   }
+
+  drawQuadCurve() {
+    const startX = 800;
+    const startY = 50;
+    const controlX = 900;
+    const controlY = 140;
+    const endX = 1000;
+    const endY = 50;
+
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = "green";
+    this.ctx.lineWidth = 2;
+    this.ctx.moveTo(startX, startY);
+    this.ctx.quadraticCurveTo(controlX, controlY, endX, endY);
+    this.ctx.stroke();
+
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = "rgba(0,0,0,0)";
+    this.ctx.lineWidth = 2;
+    this.ctx.moveTo(startX, startY);
+    this.ctx.lineTo(controlX, controlY);
+    this.ctx.lineTo(endX, endY);
+    this.ctx.stroke();
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "red";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(startX, startY, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "blue";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(controlX, controlY, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "red";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(endX, endY, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+  }
+
+  drawCubicCurve() {
+    const startX = 800;
+    const startY = 500;
+    const firstControlX = 900;
+    const firstControlY = 800;
+    const secondControlX = 1000;
+    const secondControlY = 200;
+    const endX = 1100;
+    const endY = 500;
+
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = "green";
+    this.ctx.lineWidth = 2;
+    this.ctx.moveTo(startX, startY);
+    this.ctx.bezierCurveTo(
+      firstControlX,
+      firstControlY,
+      secondControlX,
+      secondControlY,
+      endX,
+      endY
+    );
+    this.ctx.stroke();
+
+    this.ctx.beginPath();
+    this.ctx.strokeStyle = "rgba(0,0,0,0)";
+    this.ctx.lineWidth = 2;
+    this.ctx.moveTo(startX, startY);
+    this.ctx.lineTo(firstControlX, firstControlY);
+    this.ctx.lineTo(secondControlX, secondControlY);
+    this.ctx.lineTo(endX, endY);
+    this.ctx.stroke();
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "red";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(startX, startY, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "blue";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(firstControlX, firstControlY, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "blue";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(secondControlX, secondControlY, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+    /*
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "blue";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc((startX + endX) / 2, endY, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+    */
+    this.ctx.beginPath();
+    this.ctx.fillStyle = "red";
+    this.ctx.lineWidth = 5;
+    this.ctx.arc(endX, endY, 3, 0, 2 * Math.PI);
+    this.ctx.fill();
+  }
 }
 
 window.onload = () => {
@@ -132,4 +238,6 @@ window.onload = () => {
   app.drawRect(50, 50, 100, 100);
   app.drawLine();
   app.drawArc(100, 400, 40, 0, 2 * Math.PI, false);
+  app.drawQuadCurve();
+  app.drawCubicCurve();
 };
