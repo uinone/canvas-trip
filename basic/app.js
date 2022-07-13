@@ -231,6 +231,22 @@ class App {
     this.ctx.arc(endX, endY, 3, 0, 2 * Math.PI);
     this.ctx.fill();
   }
+
+  drawPath() {
+    const a = new Path2D();
+    a.moveTo(200, 500);
+    a.lineTo(300, 500);
+
+    const b = new Path2D();
+    b.arc(200, 500, 2, 0, 2 * Math.PI, false);
+    b.arc(300, 500, 2, 0, 2 * Math.PI, false);
+
+    this.ctx.strokeStyle = "aqua";
+    this.ctx.fillStyle = "aqua";
+    this.ctx.lineWidth = 4;
+    this.ctx.stroke(a);
+    this.ctx.fill(b);
+  }
 }
 
 window.onload = () => {
@@ -240,4 +256,5 @@ window.onload = () => {
   app.drawArc(100, 400, 40, 0, 2 * Math.PI, false);
   app.drawQuadCurve();
   app.drawCubicCurve();
+  app.drawPath();
 };

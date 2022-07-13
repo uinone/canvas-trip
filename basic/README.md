@@ -461,3 +461,41 @@ this.ctx.stroke();
 <img src="../images/basic/7.JPG" width="300px"/>
 
 위 코드와 같이 작성하여 3차 베지에 곡선을 그릴 수 있습니다.
+
+<br/>
+
+<br/>
+
+## Path2D Object
+
+Path2D 객체를 사용하여 그리려는 경로를 기록하거나 캐싱할 수 있습니다.
+
+```js
+new Path2D();
+
+new Path2D(path);
+
+new Path2D(d);
+```
+
+[reference](https://developer.mozilla.org/en-US/docs/Web/API/Path2D/Path2D)
+
+> 새로운 Path2D 객체를 생성하거나, 다른 Path2D 객체를 받아 복사한 하거나, SVG path 데이터를 path로 만들 수 있습니다.
+
+```js
+const a = new Path2D();
+a.moveTo(200, 500);
+a.lineTo(300, 500);
+
+const b = new Path2D();
+b.arc(200, 500, 2, 0, 2 * Math.PI, false);
+b.arc(300, 500, 2, 0, 2 * Math.PI, false);
+
+this.ctx.strokeStyle = "aqua";
+this.ctx.fillStyle = "aqua";
+this.ctx.lineWidth = 4;
+this.ctx.stroke(a);
+this.ctx.fill(b);
+```
+
+위와같이 직선을 그리는 Path2D object a와 Path2D object b를 만들어 사용할 수 있습니다.
