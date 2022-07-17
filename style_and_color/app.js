@@ -59,10 +59,47 @@ class App {
       startY += radius * 2;
     }
   }
+
+  drawLineWithJoin(startX, startY, width, height) {
+    this.ctx.beginPath();
+
+    this.ctx.strokeStyle = "orange";
+    this.ctx.lineWidth = 8;
+
+    this.ctx.lineCap = "round";
+    this.ctx.lineJoin = "miter";
+    this.ctx.miterLimit = 16;
+
+    this.ctx.moveTo(startX, startY);
+
+    for (let i = 1; i < 4; i += 2) {
+      this.ctx.lineTo(startX + width * i, startY + height);
+      this.ctx.lineTo(startX + width * (i + 1), startY);
+    }
+
+    this.ctx.stroke();
+
+    this.ctx.fillStyle = "blue";
+    this.ctx.lineWidth = 1;
+
+    for (let i = 1; i < 4; i++) {
+      this.ctx.beginPath();
+      this.ctx.arc(
+        startX + width * i,
+        startY + height * (i % 2),
+        3,
+        0,
+        2 * Math.PI
+      );
+
+      this.ctx.fill();
+    }
+  }
 }
 
 window.onload = () => {
   const app = new App();
   app.drawColorsWidthFill(50, 20, 20, 6);
   app.drawColorsWidtStroke(250, 40, 20, 6);
+  app.drawLineWithJoin(600, 300, 10, 150);
 };
